@@ -1,0 +1,70 @@
+{
+  "experiment_name": "wikihop_test",
+  "num_retries": 2,
+  "dataset": {
+    "name": "wikihop",
+    "metadata_fields": ["ACC"]
+  },
+  "sampling": {
+    "num_examples": 1,
+    "seed": 11
+  },
+  "evaluator": "wikihop",
+  "decomposition": {
+    "num_decompositions": 5,
+    "prompt": "wikihop_decompositions_with_retrieval_context_first",
+    "retrieve_orig_question": true,
+    "gpt3_accessor": "gpt_accessor_with_retrieval_context_first",
+    "send_question_separately": true,
+    "retriever_cache_dir": "data/retrieval/cache",
+    "gpt_accessor_indices_with_temperature_0": [0],
+    "gpt3_accessor_temperature": 0.7
+  },
+  "abstain": {
+    "prompt": "abstain_v1",
+    "question_prompt_prefix": "",
+    "stop_condition": "#",
+    "model": "code-davinci-002"
+  },
+  "entailment": {
+    "mte": {
+      "prompt": "wikihop_entailment",
+      "shuffle_context": false,
+      "use_ir_contexts": false,
+      "use_qa_pairs": true,
+      "question_prompt_prefix": "",
+      "stop_condition": "#",
+      "model": "code-davinci-002"
+    },
+    "ste": {
+      "prompt": "wikihop_entailment",
+      "shuffle_context": false,
+      "use_ir_contexts": false,
+      "max_decompositions": 1,
+      "use_qa_pairs": true,
+      "question_prompt_prefix": "",
+      "stop_condition": "#",
+      "model": "code-davinci-002"
+    },
+    "mte_contexts": {
+      "prompt": "wikihop_entailment_contexts_only",
+      "shuffle_context": false,
+      "use_ir_contexts": true,
+      "use_qa_pairs": false,
+      "question_prompt_prefix": "",
+      "stop_condition": "#",
+      "model": "code-davinci-002"
+    },
+    "ste_contexts": {
+      "prompt": "wikihop_entailment_contexts_only",
+      "shuffle_context": false,
+      "use_ir_contexts": true,
+      "max_decompositions": 1,
+      "use_qa_pairs": false,
+      "question_prompt_prefix": "",
+      "stop_condition": "#",
+      "model": "code-davinci-002"
+    }
+  },
+  "output_dir": "data/outputs"
+}

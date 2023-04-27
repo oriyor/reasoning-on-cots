@@ -1,0 +1,12 @@
+black
+openai
+google-search-results
+wikipedia
+google-search-results
+dacite
+wandb
+pint
+python-dotenv
+numpy
+pandas
+ipython

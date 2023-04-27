@@ -1,0 +1,8 @@
+.idea
+src/*__pycache__/*
+cpython
+strategy_qa/
+*.DS_Store
+retrieval/*
+wandb/*
+.env

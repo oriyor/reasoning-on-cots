@@ -1,0 +1,38 @@
+{
+  "experiment_name": "strategy_qa_test",
+  "num_retries": 2,
+  "dataset": {
+    "name": "strategy_qa",
+    "metadata_fields": ["ACC"]
+  },
+  "sampling": {
+    "seed": 11,
+    "num_examples":2
+  },
+  "evaluator": "em",
+  "decomposition": {
+    "num_decompositions": 3,
+    "prompt": "self_ask_strategy_qa_contexts_first",
+    "retrieve_orig_question": true,
+    "gpt3_accessor": "gpt_accessor_with_retrieval_context_first",
+    "send_question_separately": true,
+    "retriever_cache_dir": "data/retrieval/cache",
+    "gpt_accessor_indices_with_temperature_0": [0],
+    "gpt3_accessor_temperature": 0.7
+  },
+  "abstain": {
+    "prompt": "abstain_v3",
+    "question_prompt_prefix": "",
+    "stop_condition": "#",
+    "model": "code-davinci-002"
+  },
+  "entailment": {
+    "skip_entailment": true,
+    "shuffle_context": true,
+    "prompt": "strategy_qa_entailment_reversed_random_v2",
+    "question_prompt_prefix": "",
+    "stop_condition": "#",
+    "model": "code-davinci-002"
+  },
+  "output_dir": "data/outputs"
+}
