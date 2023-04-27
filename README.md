@@ -1,4 +1,4 @@
-## Answering Questions by Meta-Reasoning over Multiple Chains of Thought
+## Answering Questions by Meta-Reasoning over Multiple Chains of Thought ⛓️ 
 
 [**Multi-Chain Reasoning**](https://arxiv.org/abs/2304.13007) (MCR) allows answering complex by introducing a meta-reasoner which reasons over multiple CoTs. MCR can mainly be useful in answering complex questions in which multiple answering strategies are possible.
 ### MCR System Overview
