@@ -1,3 +1,31 @@
+nq_no_retrieval = """Given the following question, answer it by providing follow up questions and intermediate answers. If intermediate questions are not necessary, answer the question directly.
+#
+Question: how did the big red one get its name
+Are follow up questions needed here: No.
+So the final answer is: its shoulder patch
+#
+Question: where are the cayman islands on the map
+Are follow up questions needed here: No.
+So the final answer is: western Caribbean Sea
+#
+Question: who won the war between north korea and south korea
+Are follow up questions needed here: No.
+So the final answer is: technically still at war
+#
+Question: when does it's always sunny in philadelphia season 13 start
+Are follow up questions needed here: No.
+So the final answer is: September 5, 2018
+#
+Question: who sang you got a friend in me from toy story
+Are follow up questions needed here: No.
+So the final answer is: Randy Newman
+# 
+Question: when was the first person sent to space
+Are follow up questions needed here: No.
+So the final answer is: 12 April 1961
+#
+Question: """
+
 nq_with_retrieval_at1 = """Given the following question, answer it by providing follow up questions and intermediate answers. If intermediate questions are not necessarry, answe the question directly. You are provided with evidence that can help you arrive at the answer before the question.
 #
 Context1: The Big Red One: Fuller was a World War II veteran and served with the 1st Infantry Division, which is nicknamed "The Big Red One" for the red numeral "1" on the division's shoulder patch. He received the Silver Star, Bronze Star, and Purple Heart during his service.
