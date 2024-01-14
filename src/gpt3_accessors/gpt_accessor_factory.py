@@ -9,6 +9,9 @@ from src.gpt3_accessors.gpt3_accessors.gpt_accessor_with_retrieval import (
 from src.gpt3_accessors.gpt3_accessors.gpt_accessor_with_retrieval_context_first import (
     GptAccessorWithRetrievalContextFirst,
 )
+from src.gpt3_accessors.gpt3_accessors.gpt_accessor_with_retriever_context_first_retrobust import (
+    GptAccessorWithRetrievalContextFirstRetrobust,
+)
 
 
 class GptAccessorFactory(AbstractFactory):
@@ -19,4 +22,5 @@ class GptAccessorFactory(AbstractFactory):
             "gpt_accessor_simple": GptAccessorSimple,
             "gpt_accessor_with_retrieval": GptAccessorWithRetrieval,
             "gpt_accessor_with_retrieval_context_first": GptAccessorWithRetrievalContextFirst,
+            "gpt_accessor_with_retrieval_context_first_retrobust": GptAccessorWithRetrievalContextFirstRetrobust,
         }

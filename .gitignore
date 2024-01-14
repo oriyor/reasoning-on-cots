@@ -6,3 +6,6 @@ strategy_qa/
 retrieval/*
 wandb/*
 .env
+data/outputs/
+data/retrieval/
+__pycache__/

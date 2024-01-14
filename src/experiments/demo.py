@@ -70,6 +70,7 @@ def run_question(
     )[0]
     print(f"F1: {res['mcr_acc@mte']}")
 
+
 #
 # dataset = "strategyqa"  # 2wikihop/strategyqa
 # question_text = "Did Brad Peyton need to know about seismology?"
