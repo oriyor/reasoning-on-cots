@@ -1,5 +1,5 @@
 black
-openai
+openai==0.27.10
 google-search-results
 wikipedia
 google-search-results
@@ -10,3 +10,4 @@ python-dotenv
 numpy
 pandas
 ipython
+regex

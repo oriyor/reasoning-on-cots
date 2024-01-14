@@ -405,6 +405,166 @@ class QuestionV1:
         # self.populate_trace_entailments()
 
 
+@dataclass
+class QuestionV1Retrobust:
+    """
+    a question object
+    """
+
+    question: str  # original question
+    statement: StatementResult  # the parsed statement after calling gpt-3
+    decompositions: List[str]  # decompositions from gpt-3 self-ask
+    decompsition_steps: List[List[DecompositionStepV1]]  # reasoning traces
+    traces_entailments: List[List[TraceResult]]
+
+    def __init__(
+        self,
+        question: str,
+        prompt: str,
+        gpt3_accessor: GptAccessor,
+        num_decompositions: int = 5,
+    ):
+        self.question = question
+        self.send_question_separately = Config().get(
+            "decomposition.send_question_separately"
+        )
+        self.gpt_accessor_indices_with_temperature_0 = Config().get(
+            "decomposition.gpt_accessor_indices_with_temperature_0"
+        )
+        self.curr_prompt = (
+            prompt if self.send_question_separately else prompt + self.question
+        )
+        self.num_decompositions = num_decompositions
+        self.gpt3_accessor = gpt3_accessor
+        self.statement = None
+        self.decompositions = None
+        self.decompsition_steps = None
+        self.traces_entailments = None
+        self.traces_entailments_google = None
+
+    # Todo: TW - Commented out because of DeBerta in background
+    # def _get_entailment_res(
+    #     self, decomposition_linearized: str, statement: str
+    # ) -> EntailmentResultWithInput:
+    #     entailment = run_entailment(
+    #         premise=decomposition_linearized, hypothesis=statement
+    #     )
+    #     entailment_result_with_input = EntailmentResultWithInput(
+    #         premise=decomposition_linearized,
+    #         hypothesis=statement,
+    #         entailment_result=entailment,
+    #     )
+    #     return entailment_result_with_input
+
+    def populate_statement(self):
+        print("\npopulating statement")
+        # gpt_statement_res = call_gpt_statement_generatior(
+        #     statement_generation_prompt + self.question, ""
+        # )
+        gpt_statement_res = ""
+        self.statement = format_statement(gpt_statement_res)
+
+    def populate_decompositions(self):
+        def get_temp_at_index(index: int) -> float:
+            # check if the index should get temp 0
+            if (
+                self.gpt_accessor_indices_with_temperature_0 is not None
+                and index in self.gpt_accessor_indices_with_temperature_0
+            ):
+                return 0
+            return Config().get("decomposition.gpt3_accessor_temperature")
+
+        print("\npopulating_decompositions")
+        self.decompositions = [
+            self.gpt3_accessor.call_gpt(self.curr_prompt, "", get_temp_at_index(i))
+            if not self.send_question_separately
+            else self.gpt3_accessor.call_gpt(
+                self.curr_prompt, "", get_temp_at_index(i), self.question
+            )
+            for i in range(self.num_decompositions)
+        ]
+
+    def populate_decomposition_steps(self):
+        print("\npopulating_decompositions_steps")
+        self.decompsition_steps = [
+            format_decompsition_break(decomposition)
+            if type(decomposition) == BreakDecomposition
+            else format_decompsition_string(decomposition)
+            for decomposition in self.decompositions
+        ]
+
+    def populate_trace_entailments(self):
+        print("\npopulate_trace_entailments")
+        trace_results = [
+            [
+                TraceResult(
+                    positive=self._get_entailment_res(
+                        linearize_decompositions(decompsition[: i + 1]),
+                        self.statement.positive,
+                    ),
+                    negative=self._get_entailment_res(
+                        linearize_decompositions(decompsition[: i + 1]),
+                        self.statement.negative,
+                    ),
+                )
+                for i in range(len(decompsition))
+            ]
+            for decompsition in self.decompsition_steps
+        ]
+        self.traces_entailments = trace_results
+
+        print("\npopulate_trace_entailments_google")
+        self.traces_entailments_google = []
+
+    def populate(self):
+        """ """
+        self.populate_statement()
+        self.populate_decompositions()
+        self.populate_decomposition_steps()
+        # Todo: TW - Commented out because of DeBerta in background
+        # self.populate_trace_entailments()
+
+    def populate_decomposition_steps(self):
+        # print("\npopulating_decompositions_steps")
+        self.decompsition_steps = [
+            format_decompsition_break(decomposition)
+            if type(decomposition) == BreakDecomposition
+            else format_decompsition_string(decomposition)
+            for decomposition in self.decompositions
+        ]
+
+    def populate_trace_entailments(self):
+        print("\npopulate_trace_entailments")
+        trace_results = [
+            [
+                TraceResult(
+                    positive=self._get_entailment_res(
+                        linearize_decompositions(decompsition[: i + 1]),
+                        self.statement.positive,
+                    ),
+                    negative=self._get_entailment_res(
+                        linearize_decompositions(decompsition[: i + 1]),
+                        self.statement.negative,
+                    ),
+                )
+                for i in range(len(decompsition))
+            ]
+            for decompsition in self.decompsition_steps
+        ]
+        self.traces_entailments = trace_results
+
+        print("\npopulate_trace_entailments_google")
+        self.traces_entailments_google = []
+
+    def populate(self):
+        """ """
+        self.populate_statement()
+        self.populate_decompositions()
+        self.populate_decomposition_steps()
+        # Todo: TW - Commented out because of DeBerta in background
+        # self.populate_trace_entailments()
+
+
 class Answer(str, Enum):
     Yes = "YES"
     No = "NO"

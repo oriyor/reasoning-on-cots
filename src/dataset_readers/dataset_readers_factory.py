@@ -9,6 +9,7 @@ from src.dataset_readers.readers.fermi_reader import FermiReader
 # from src.dataset_readers.readers.hover_reader import HoverDataReader
 # from src.dataset_readers.readers.quartz_reader import QuartzDataReader
 # from src.dataset_readers.readers.bamboogle_reader import BamboogleDataReader
+from src.dataset_readers.readers.nq_reader import NQReader
 from src.dataset_readers.readers.strategy_qa import StrategyQADataReader
 from src.dataset_readers.readers.wikihop_reader import WikiHopDataReader
 
@@ -24,6 +25,7 @@ class DatasetReadersFactory(AbstractFactory):
             # "bamboogle": BamboogleDataReader,
             # "quartz": QuartzDataReader,
             "wikihop": WikiHopDataReader,
+            "nq": NQReader,
             # "feverous": FeverousDataReader,
             # "hover": HoverDataReader,
             # "hotpotqa": HotpotQADataReader,
