@@ -6,7 +6,8 @@ from src.prompting.prompts_to_keep import (
     strategyqa_decomposition,
     strategy_mcr,
 )
-from src.prompting.retrobust import nq_with_retrieval_at1
+from src.prompting.retrobust import nq_with_retrieval_at1, nq_with_retrieval_at10, nq_with_retrieval_mix, \
+    nq_no_retrieval
 
 PromptFactoryDict: Dict[str, str] = {
     "2wikihop_decomposition": wikihop_decompositions_with_retrieval_context_first,
@@ -15,4 +16,7 @@ PromptFactoryDict: Dict[str, str] = {
     "strategyqa_mcr": strategy_mcr,
     "question_prefix": "Question: ",
     "nq_with_retrieval_at1": nq_with_retrieval_at1,
+    "nq_with_retrieval_at10": nq_with_retrieval_at10,
+    "nq_with_retrieval_mix": nq_with_retrieval_mix,
+    "nq_no_retrieval": nq_no_retrieval
 }

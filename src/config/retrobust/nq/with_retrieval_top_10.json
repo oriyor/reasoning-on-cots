@@ -1,0 +1,32 @@
+{
+  "experiment_name": "eval=nq_prompt=@10_13b",
+  "num_retries": 2,
+  "dataset": {
+    "name": "nq",
+    "metadata_fields": ["ACC"]
+  },
+  "sampling": {
+    "seed": 11,
+    "examples_csv": "data/retrobust/example_questions/example_nq_questions.csv"
+  },
+  "evaluator": "nq",
+  "decomposition": {
+    "num_decompositions": 1,
+    "prompt": "nq_with_retrieval_at10",
+    "retrieve_orig_question": true,
+    "gpt3_accessor": "gpt_accessor_with_retrieval_context_first_retrobust",
+    "settings": ["reg", "random", "@10"],
+    "send_question_separately": true,
+    "randomize_retrieval": false,
+    "retrieve_at_10": false,
+    "retriever": "serp",
+    "llm_wrapper": "fastchat",
+    "gpt_accessor_indices_with_temperature_0": [0],
+    "fastchat_url": "https://90008372896c.ngrok.app",
+    "fastchat_model": "Llama-2-13b-hf",
+    "main_retriever_dir": "data/retrieval/main_cache_dir",
+    "run_output_dir": "data/retrieval/nq/eval=nq_prompt=@10_model=13b",
+    "gpt3_accessor_temperature": 0.0
+  },
+  "output_dir": "data/outputs"
+}

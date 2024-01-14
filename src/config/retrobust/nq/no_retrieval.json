@@ -1,0 +1,48 @@
+{
+  "experiment_name": "nq_no_ret",
+  "num_retries": 2,
+  "dataset": {
+    "name": "nq",
+    "metadata_fields": ["ACC"]
+  },
+  "sampling": {
+    "seed": 11,
+    "examples_csv": "data/retrobust/example_questions/example_nq_questions.csv"
+  },
+  "evaluator": "nq",
+  "decomposition": {
+    "num_decompositions": 1,
+    "prompt": "nq_no_retrieval",
+    "retrieve_orig_question": false,
+    "gpt3_accessor": "gpt_accessor_simple_retrobust",
+    "send_question_separately": false,
+    "settings": ["reg"],
+    "retriever": "serp",
+    "llm_wrapper": "fastchat",
+    "fastchat_url": "https://7872-132-67-132-190.ngrok-free.app",
+    "fastchat_url": "https://90008372896c.ngrok.app",
+    "fastchat_model": "Llama-2-13b-hf",
+    "gpt_accessor_indices_with_temperature_0": [0],
+    "gpt3_accessor_temperature": 0.7
+  },
+  "abstain": {
+    "prompt": "abstain_v1",
+    "question_prompt_prefix": "",
+    "stop_condition": "#",
+    "model": "code-davinci-002"
+  },
+  "entailment": {
+    "ste": {
+          "prompt": "bamboogle_ir",
+    "ir_entailment": false,
+    "retrieve_orig_question": null,
+    "shuffle_context": false,
+    "use_ir_contexts": true,
+    "use_qa_pairs": false,
+    "question_prompt_prefix": "",
+    "stop_condition": "#",
+    "model": "code-davinci-002"
+    }
+  },
+  "output_dir": "data/outputs"
+}

@@ -55,7 +55,7 @@ def parse_args():
     parser.add_argument(
         "--config_path",
         type=str,
-        default="src/config/retrobust/nq/with_retrieval_top_1.json",
+        default="src/config/retrobust/nq/no_retrieval.json",
         help="Config file path",
     )
     return parser.parse_args()
@@ -501,7 +501,7 @@ def run_experiment(config_path: str):
     if examples_csv is not None:
         prev_examples = pd.read_csv(examples_csv).to_dict("rows")
         previous_qids = {
-            ast.literal_eval(x["question"])["question"].split("Unit:")[0].strip()
+            ast.literal_eval(x["question"])["question"]
             for x in prev_examples
         }
 
