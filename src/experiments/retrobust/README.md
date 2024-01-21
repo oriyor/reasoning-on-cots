@@ -24,7 +24,7 @@ We are also sharing our cached retrieval results for SerpAPI and ColBERT from al
 
 ### Configuring an experiment 
 RetRobust experiments require configuring the following fields:
-* `settings`: this is the retrieval setting that will be examined. Setting ["reg", "random", "@10"] will run all three retrieval settings. To run a single setting, use the `randomize_retrieval` and `randomize_retrieval` fields.
+* `settings`: this is the retrieval setting that will be examined. Setting ["reg", "random", "@10"] will run all three retrieval settings. To run a single setting, use the `randomize_retrieval` and `retrieve_at_10` fields.
 * `main_retriever_dir`: this is the directory from which cached retrieval results will be read. 
 * `run_output_dir`: this is the directory to which retrieval results will be cached (in addition to the `main_retriever_dir`). This repository will be used to read retrieval results when randomizing retrieval.
 * The rest of the settings (including the retriever, inference endpoint, and model) are similar to the [reasoning-on-cots](https://github.com/oriyor/reasoning-on-cots) project. For example RetRobust config files, see `src/config/retrobust`.
